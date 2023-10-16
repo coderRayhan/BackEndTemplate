@@ -14,6 +14,15 @@ public static class DependencyInjection
         services.AddDatabaseDeveloperPageExceptionFilter();
 
         services.AddHttpContextAccessor();
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowAll", o =>
+            {
+                o.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin();
+            });
+        });
 
         return services;
     }
