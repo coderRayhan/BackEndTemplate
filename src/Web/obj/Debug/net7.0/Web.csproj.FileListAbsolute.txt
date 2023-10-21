@@ -106,3 +106,4 @@ E:\Template\NET\LMS\src\Web\bin\Debug\net7.0\Humanizer.dll
 E:\Template\NET\LMS\src\Web\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
 E:\Template\NET\LMS\src\Web\bin\Debug\net7.0\Mono.TextTemplating.dll
 E:\Template\NET\LMS\src\Web\bin\Debug\net7.0\System.CodeDom.dll
+E:\Template\NET\LMS\src\Web\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
