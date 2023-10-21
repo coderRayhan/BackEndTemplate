@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Folder Include="Common\Mappings\" />
+    <Folder Include="Features\Identity\RegisterCommand\" />
+    <Folder Include="Features\Identity\Roles\Commands\" />
   </ItemGroup>
 
   <ItemGroup>
