@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Common\Mappings\" />
-    <Folder Include="Features\Identity\Account\Commands\" />
     <Folder Include="Features\Identity\Roles\Commands\" />
   </ItemGroup>
 
