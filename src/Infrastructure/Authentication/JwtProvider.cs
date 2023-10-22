@@ -13,7 +13,7 @@ public class JwtProvider : IJwtProvider
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly JwtOptions _jwtOptions;
 
-    public JwtProvider(UserManager<ApplicationUser> userManager, IOptionsSnapshot<JwtOptions> jwtOptions)
+    public JwtProvider(UserManager<ApplicationUser> userManager, IOptions<JwtOptions> jwtOptions)
     {
         _userManager = userManager;
         _jwtOptions = jwtOptions.Value;

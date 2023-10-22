@@ -4,13 +4,13 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Web.OptionSetups;
+namespace Infrastructure.OptionSetups;
 
 public class JwtBearerOptionsSetup : IConfigureOptions<JwtBearerOptions>
 {
     private readonly JwtOptions _jwtOptions;
 
-    public JwtBearerOptionsSetup(IOptionsSnapshot<JwtOptions> jwtOptions)
+    public JwtBearerOptionsSetup(IOptions<JwtOptions> jwtOptions)
     {
         _jwtOptions = jwtOptions.Value;
     }

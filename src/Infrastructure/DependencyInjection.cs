@@ -1,7 +1,10 @@
 ﻿using Application.Common.Interfaces;
+using Infrastructure.Authentication;
 using Infrastructure.Data;
 using Infrastructure.Data.Interceptors;
 using Infrastructure.Identity;
+using Infrastructure.OptionSetups;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,11 +23,18 @@ public static class DependencyInjection
             options.UseSqlServer(conStr);
         });
 
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer();
+        services.ConfigureOptions<JwtOptionsSetup>();
+        services.ConfigureOptions<JwtBearerOptionsSetup>();
+
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
         services.AddTransient<IIdentityService, IdentityService>();
+        services.AddScoped<IJwtProvider, JwtProvider>();
 
         services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
+        services.AddScoped<ApplicationDbContextInitialiser>();
 
         return services;
     }

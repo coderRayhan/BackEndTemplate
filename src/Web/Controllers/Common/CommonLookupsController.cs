@@ -1,8 +1,10 @@
-﻿using Application.Features.CommonLookups.Commands;
+﻿using Application.Common.Security;
+using Application.Features.CommonLookups.Commands;
 using Application.Features.CommonLookups.Queries;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers.Common;
+[Authorize(Policy = "Permission", Roles = "SuperAdmin")]
 public class CommonLookupsController : BaseApiController
 {
     [HttpGet]
