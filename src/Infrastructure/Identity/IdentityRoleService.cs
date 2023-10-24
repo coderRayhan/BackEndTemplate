@@ -3,6 +3,8 @@ using Application.Common.Models;
 using Application.Features.Identity.Roles.Queries;
 using Ardalis.GuardClauses;
 using AutoMapper;
+using Domain.Constants;
+using Infrastructure.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -69,12 +71,27 @@ public class IdentityRoleService : IIdentityRoleService
         return (result.ToApplicationResult());
     }
 
-    public async Task<List<PermissionDto>> GetPermissionsByRole(string roleId)
+    public async Task<IdentityRoleDto> GetPermissionsByRoleAsync(string roleId)
     {
+        var model = new IdentityRoleDto { RoleId = roleId };
+        var permissions = new List<PermissionDto>();
+        //permissions.GetPermissions(typeof(Permissions));
+        permissions.GetAllPermissions();
         var claims = await _roleManager.GetClaimsAsync(
             await _roleManager.FindByIdAsync(roleId));
-        var permissions = _mapper.Map<List<PermissionDto>>(claims);
-        return permissions;
+        var allClaimValues = permissions.Select(x => x.Value).ToList();
+        var roleClaimValues = claims.Select(x => x.Value).ToList();
+        var authorizedClaims = allClaimValues.Intersect(roleClaimValues).ToList();
+        foreach (var permission in permissions)
+        {
+            if(authorizedClaims.Any(e => e == permission.Value))
+            {
+                permission.IsSelected = true;
+            }
+        }
+        model.Permissions = permissions;
+        //var permissions = _mapper.Map<List<PermissionDto>>(claims);
+        return model;
     }
 
     public async Task<string> AddOrRemovePermissionAsync(string roleId, List<PermissionDto> permissions)

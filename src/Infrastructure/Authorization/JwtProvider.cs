@@ -7,7 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Infrastructure.Authentication;
+namespace Infrastructure.Authorization;
 public class JwtProvider : IJwtProvider
 {
     private readonly UserManager<ApplicationUser> _userManager;

@@ -8,17 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Web.Controllers.Identity;
 public class AccountController : BaseApiController
 {
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly SignInManager<ApplicationUser> _signInManager;
-
-    public IJwtProvider JwtProvider { get; }
-
-    public AccountController(UserManager<ApplicationUser> userManager, IJwtProvider jwtProvider, SignInManager<ApplicationUser> signInManager)
-    {
-        _userManager = userManager;
-        JwtProvider = jwtProvider;
-        _signInManager = signInManager;
-    }
     [HttpPost("Register")]
     public async Task<IActionResult> Register([FromBody] UserDto user)
     {
@@ -30,13 +19,9 @@ public class AccountController : BaseApiController
     [HttpPost]
     public async Task<IActionResult> Login([FromBody] UserDto user)
     {
-        var result = await _signInManager.PasswordSignInAsync(user.UserName, user.Password, false, false);
-        if (result.Succeeded)
-        {
-            var userid = _userManager.FindByNameAsync(user.UserName).Result.Id;
-            var token = await JwtProvider.CreateAsync(userid);
-            return Ok(token);
-        }
-        return BadRequest("Invalid credentials");
+        var response = await Mediator.Send(new LoginCommand(user.UserName, user.Password));
+        if (response.isSuccess)
+            return Ok(response.result);
+        return BadRequest(response.result);
     }
 }

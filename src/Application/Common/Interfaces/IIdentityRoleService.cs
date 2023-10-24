@@ -15,6 +15,6 @@ public interface IIdentityRoleService
     Task<(Result result, string roleId)> CreateRoleAsync(string roleName);
     Task<(Result result, string roleId)> UpdateRoleAsync(string roleId, string roleName);
     Task<Result> DeleteRoleAsync(string roleId);
-    Task<List<PermissionDto>> GetPermissionsByRole(string roleId);
+    Task<IdentityRoleDto> GetPermissionsByRoleAsync(string roleId);
     Task<string> AddOrRemovePermissionAsync(string roleId, List<PermissionDto> permissions);
 }

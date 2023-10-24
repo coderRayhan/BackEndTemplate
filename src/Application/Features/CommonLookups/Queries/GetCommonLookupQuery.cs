@@ -1,7 +1,9 @@
-﻿using AutoMapper;
+﻿using Application.Common.Security;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 
 namespace Application.Features.CommonLookups.Queries;
+[Authorize(Roles = "admin")]
 public record GetCommonLookupQuery : IRequest<IList<CommonLookupResponse>>;
 
 public class GetCommonLookupQueryHandler : IRequestHandler<GetCommonLookupQuery, IList<CommonLookupResponse>>

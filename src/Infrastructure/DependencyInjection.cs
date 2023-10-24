@@ -1,5 +1,5 @@
 ﻿using Application.Common.Interfaces;
-using Infrastructure.Authentication;
+using Infrastructure.Authorization;
 using Infrastructure.Data;
 using Infrastructure.Data.Interceptors;
 using Infrastructure.Identity;
@@ -30,6 +30,8 @@ public static class DependencyInjection
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
         services.AddTransient<IIdentityService, IdentityService>();
+        services.AddTransient<IIdentityRoleService, IdentityRoleService>();
+        services.AddTransient<IAuthService, AuthService>();
         services.AddScoped<IJwtProvider, JwtProvider>();
 
         services.AddIdentity<ApplicationUser, IdentityRole>()

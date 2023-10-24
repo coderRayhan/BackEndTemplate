@@ -1,4 +1,4 @@
-﻿using Infrastructure.Authentication;
+﻿using Infrastructure.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
